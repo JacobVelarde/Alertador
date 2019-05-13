@@ -27,12 +27,13 @@ $(function() {
 
 function initMap(){
   mapboxgl.accessToken = 'pk.eyJ1IjoiYWxlcnRhZG9ycGVydSIsImEiOiJjanYwazZwNXgxa2IzM3ptZm84em83M21qIn0.kfhR7ywDyyuMxGgdmMEG3A';
-  var huacho = [-77.6231581, -11.1271569];
+  var huacho = [-77.598821, -11.097981];
+
   map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
     center: huacho,
-    zoom: 11
+    zoom: 13
   });
   var nav = new mapboxgl.NavigationControl();
   map.addControl(new mapboxgl.FullscreenControl());
