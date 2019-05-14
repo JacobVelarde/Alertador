@@ -3,6 +3,7 @@ var array;
 var liveQuery;
 var subscriptionNotification;
 var arrayAlerts = [];
+var markers = [];
 
 var alerta = function(id, latitud, longitud, telefono, estatus, tipoAlerta ) {
   this.id = id
@@ -13,6 +14,11 @@ var alerta = function(id, latitud, longitud, telefono, estatus, tipoAlerta ) {
   this.tipoAlerta = tipoAlerta
 }
 
+var markerConstructor = function(idUnique, m){
+  this.idUnique = idUnique
+  this.m = m;
+}
+
 $(function() {
 
     initMap();
@@ -21,6 +27,12 @@ $(function() {
       getAlerts();
       liveQuery();
       initSubscriptionNotification();
+    });
+
+    $("#btnEliminarAlerta").click(function() {
+        var idUnique = $("#identificador").text();
+        //alert(idUnique)
+        deleteAlert(idUnique)
     });
 
 });
@@ -69,11 +81,10 @@ function setAlert(object) {
   var tipoAlerta = object.tipoAlerta;
   var div = document.createElement('div');
   div.addEventListener('click', function() {
-    console.log("Buscando usuario: "+object.telefono);
     searchUser(object.telefono, object.idUnique);
   });
 
-  setMarkerWithDiv(div, object.longitud, object.latitud, object.tipoAlerta)
+  setMarkerWithDiv(object.idUnique, div, object.longitud, object.latitud, object.tipoAlerta)
 }
 
 function initSubscriptionNotification(){
@@ -87,16 +98,19 @@ function initSubscriptionNotification(){
     var tipoAlerta = todo.get("tipoAlerta");
     var div = document.createElement('div');
     div.addEventListener('click', function() {
-      console.log("buscando usuario: "+todo.get("telefono"));
       searchUser(todo.get("telefono"), todo.get("idUnique"));
     });
 
-    setMarkerWithDiv(div, todo.get("longitud"), todo.get("latitud"), todo.get("tipoAlerta"));
+    PNotify.success({
+      text: "Nueva alerta: "+todo.get("tipoAlerta")
+    });
+
+    setMarkerWithDiv(todo.get("idUnique"), div, todo.get("longitud"), todo.get("latitud"), todo.get("tipoAlerta"));
 
   });
 }
 
-function setMarkerWithDiv(div, longitud, latitud, tipoAlerta){
+function setMarkerWithDiv(idUnique, div, longitud, latitud, tipoAlerta){
 
   switch (tipoAlerta) {
     case "BOMBEROS":
@@ -121,6 +135,8 @@ function setMarkerWithDiv(div, longitud, latitud, tipoAlerta){
   .setLngLat([longitud,latitud])
   .addTo(map);
 
+  markers.push(new markerConstructor(idUnique,marker))
+
 }
 
 function searchUser(telefono, idAlerta){
@@ -143,3 +159,35 @@ function searchUser(telefono, idAlerta){
     console.log(error);
   });
 }
+
+function deleteAlert(idUnique){
+
+    const Notificacion = Parse.Object.extend('Notificacion');
+    const query = new Parse.Query(Notificacion);
+    query.equalTo('idUnique', idUnique).first().then((object) => {
+      object.destroy().then((response) => {
+        //if (typeof document !== 'undefined') document.write(`Deleted Notificacion: ${JSON.stringify(response)}`);
+            PNotify.success({
+              text: "Se elimino la alerta: "+idUnique+" correctamente"
+            });
+
+            var i;
+            for (i = 0; i < markers.length; i++){
+                if (markers[i].idUnique == idUnique){
+                    console.log(markers[i].idUnique)
+                    var mark = markers[i].m
+                    mark.remove();
+                    markers.splice(i, 1);
+                }
+            }
+        }, (error) => {
+        //if (typeof document !== 'undefined') document.write(`Error while deleting Notificacion: ${JSON.stringify(error)}`);
+            PNotify.error({
+              text: "Error al eliminar la alerta: "+idUnique
+            });
+        });
+    });
+
+    $('#alertModal').modal('toggle');
+}
+
