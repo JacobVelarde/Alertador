@@ -54,8 +54,57 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-12">
+          <button type="button" class="btn btn-success" id="btnAgregarUsuario">Agregar usuario</button>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- MODAL ALERT -->
+  <div class="modal" id="userModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Alerta</h5> <button type="button" class="close" data-dismiss="modal"> <span>×</span> </button>
+        </div>
+        <div class="modal-body">
+          <p id="textAlerUser">¿Quieres eliminar este registro?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="btnEliminarUsuario">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL FIN ALERT -->
+
+  <!-- MODAL ALERT -->
+  <div class="modal" id="userModalAgregar">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar usuario</h5> <button type="button" class="close" data-dismiss="modal"> <span>×</span> </button>
+        </div>
+        <div class="modal-body">
+          <p>Nombre completo</p>
+          <input type="text" id="nombreCompleto">
+          <p>Telefono</p>
+          <input type="text" id="telefono">
+          <p>Email (Opcional)</p>
+          <input type="text" id="email">
+          <p>Contraseña</p>
+          <input type="text" id="password">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="btnAgregar">Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL FIN ALERT -->
+
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -66,6 +115,8 @@
   <script type="text/javascript" src="https://npmcdn.com/parse@2.1.0/dist/parse.min.js"></script>
   <script src="./js/parseSDK.js"></script>
   <script src="./js/userDao.js"></script>
+  <script src="https://unpkg.com/pnotify@4.0.0/dist/umd/PNotify.js"></script>
+  <link href="https://unpkg.com/pnotify@4.0.0/dist/PNotifyBrightTheme.css" rel="stylesheet">
 </body>
 
 </html>
