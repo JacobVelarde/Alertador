@@ -4,6 +4,7 @@ var liveQuery;
 var subscriptionNotification;
 var arrayAlerts = [];
 var markers = [];
+var audio;
 
 var alerta = function(id, latitud, longitud, telefono, estatus, tipoAlerta ) {
   this.id = id
@@ -19,6 +20,11 @@ var markerConstructor = function(idUnique, m){
   this.m = m;
 }
 
+function soundStart(){
+
+  document.getElementById('myAudio').play();
+}
+
 $(function() {
 
     initMap();
@@ -27,6 +33,7 @@ $(function() {
       getAlerts();
       liveQuery();
       initSubscriptionNotification();
+      soundStart();
     });
 
     $("#btnEliminarAlerta").click(function() {
@@ -34,7 +41,6 @@ $(function() {
         //alert(idUnique)
         deleteAlert(idUnique)
     });
-
 });
 
 function initMap(){
@@ -190,4 +196,3 @@ function deleteAlert(idUnique){
 
     $('#alertModal').modal('toggle');
 }
-

@@ -2,6 +2,7 @@
 var editor;
 var usersArray = []
 var usersArrayTable = []
+var telefonoDelete = "";
 
 var userTable = function(nombre, localidad, direccion, telefono, email, estatus ) {
   this.nombre = nombre
@@ -15,6 +16,16 @@ var userTable = function(nombre, localidad, direccion, telefono, email, estatus 
 $(function() {
   initParse();
   getUsers();
+
+  $("#btnEliminarUsuario").click(function(){
+    if (telefonoDelete != "") {
+      deleteUsuario(telefonoDelete)
+    }else{
+      PNotify.error({
+          text: "Usuario no encontrado"
+      })
+    }
+  });
 
   $("#btnAgregarUsuario").click(function() {
     $("#userModalAgregar").modal("show");
@@ -110,21 +121,22 @@ function events(table){
   $('#example tbody').on('click', 'tr', function () {
         var data = table.row(this).data();
         console.log(data.telefono);
+        telefonoDelete = data.telefono;
         $("#userModal").modal("show");
     } );
 }
 
 function deleteUsuario(telefono){
 
-    const Notificacion = Parse.Object.extend('Notificacion');
-    const query = new Parse.Query(Notificacion);
+  const Usuario = Parse.Object.extend('Usuario');
+  const query = new Parse.Query(Usuario);
     query.equalTo('telefono', telefono).first().then((object) => {
       object.destroy().then((response) => {
         //if (typeof document !== 'undefined') document.write(`Deleted Notificacion: ${JSON.stringify(response)}`);
             PNotify.success({
               text: "Se elimino el usuario: correctamente"
             });
-
+            setTimeout(location.reload(), 1000);
             /*var i;
             for (i = 0; i < markers.length; i++){
                 if (markers[i].idUnique == idUnique){
@@ -142,7 +154,7 @@ function deleteUsuario(telefono){
         });
     });
 
-    $('#userModalAgregar').modal('toggle');
+    $('#userModal').modal('toggle');
 }
 
 
@@ -163,7 +175,7 @@ function createUsuario(nombre, telefono, email, password){
 
     myNewObject.save().then(
       (result) => {
-        //if (typeof document !== 'undefined') document.write(`Usuario created: ${JSON.stringify(result)}`);
+
         $("#nombreCompleto").val("");
         $("#telefono").val("");
         $("#email").val("");
@@ -173,6 +185,8 @@ function createUsuario(nombre, telefono, email, password){
             text: "Se creo el usuario correctamente"
         });
 
+        setTimeout(location.reload(), 1000);
+
       },
       (error) => {
         //if (typeof document !== 'undefined') document.write(`Error while creating Usuario: ${JSON.stringify(error)}`);
@@ -181,12 +195,11 @@ function createUsuario(nombre, telefono, email, password){
         $("#email").val("");
         $("#password").val("");
 
-        PNotify.success({
+        PNotify.error({
             text: "Error al crear el usuario"
         });
       }
     );
 
     $('#userModalAgregar').modal('toggle');
-
 }
