@@ -20,11 +20,6 @@ var markerConstructor = function(idUnique, m){
   this.m = m;
 }
 
-function soundStart(){
-
-  document.getElementById('myAudio').play();
-}
-
 $(function() {
 
     initMap();
@@ -33,7 +28,10 @@ $(function() {
       getAlerts();
       liveQuery();
       initSubscriptionNotification();
-      soundStart();
+
+          PNotify.success({
+            text: "Bienvenido"
+          });
     });
 
     $("#btnEliminarAlerta").click(function() {
@@ -110,6 +108,8 @@ function initSubscriptionNotification(){
     PNotify.success({
       text: "Nueva alerta: "+todo.get("tipoAlerta")
     });
+    var iframe = document.getElementById('audio');
+    iframe.src = iframe.src;
 
     setMarkerWithDiv(todo.get("idUnique"), div, todo.get("longitud"), todo.get("latitud"), todo.get("tipoAlerta"));
 
@@ -167,7 +167,6 @@ function searchUser(telefono, idAlerta){
 }
 
 function deleteAlert(idUnique){
-
     const Notificacion = Parse.Object.extend('Notificacion');
     const query = new Parse.Query(Notificacion);
     query.equalTo('idUnique', idUnique).first().then((object) => {

@@ -79,7 +79,11 @@
 </head>
 
 <body class="text-center bg-dark">
-  <audio id="myAudio" src="./source/alarm.mp3"></audio>
+  <iframe src="./source/alarm.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
+
+  <audio id="alarma" src="./source/alarm.mp3" preload="auto">
+        Este navegador no tiene soporte para la alarme
+  </audio>
   <div class="p-3 h-100 d-flex flex-column">
     <div class="container mb-auto">
       <div class="row">
@@ -152,6 +156,9 @@
   <script src="https://unpkg.com/pnotify@4.0.0/dist/umd/PNotify.js"></script>
   <link href="https://unpkg.com/pnotify@4.0.0/dist/PNotifyBrightTheme.css" rel="stylesheet">
 
+  <script>
+
+  </script>
 </body>
 
 </html>
