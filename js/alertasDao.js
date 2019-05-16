@@ -5,6 +5,7 @@ var liveQuery;
 var subscriptionNotification;
 var arrayAlerts = [];
 var markers = [];
+var audio;
 
 var alerta = function(id, latitud, longitud, telefono, estatus, tipoAlerta ) {
   this.id = id
@@ -28,6 +29,10 @@ $(function() {
       getAlerts();
       liveQuery();
       initSubscriptionNotification();
+
+          PNotify.success({
+            text: "Bienvenido"
+          });
     });
 
     $("#btnEliminarAlerta").click(function() {
@@ -35,7 +40,6 @@ $(function() {
         //alert(idUnique)
         deleteAlert(idUnique)
     });
-
 });
 
 function initMap(){
@@ -105,6 +109,8 @@ function initSubscriptionNotification(){
     PNotify.success({
       text: "Nueva alerta: "+todo.get("tipoAlerta")
     });
+    var iframe = document.getElementById('audio');
+    iframe.src = iframe.src;
 
     setMarkerWithDiv(todo.get("idUnique"), div, todo.get("longitud"), todo.get("latitud"), todo.get("tipoAlerta"));
 
@@ -162,7 +168,6 @@ function searchUser(telefono, idAlerta){
 }
 
 function deleteAlert(idUnique){
-
     const Notificacion = Parse.Object.extend('Notificacion');
     const query = new Parse.Query(Notificacion);
     query.equalTo('idUnique', idUnique).first().then((object) => {
@@ -191,4 +196,3 @@ function deleteAlert(idUnique){
 
     $('#alertModal').modal('toggle');
 }
-
