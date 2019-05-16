@@ -1,4 +1,5 @@
 
+var test;
 var editor;
 var usersArray = []
 var usersArrayTable = []
