@@ -1,3 +1,4 @@
+var test;
 var map;
 var array;
 var liveQuery;
