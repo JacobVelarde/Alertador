@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container"> <a class="navbar-brand" href="#">
+        <b> Seguridad Perú</b>
+      </a> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar10">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar10">
+        <ul class="navbar-nav ml-auto">
+          <!--<li class="nav-item"> <a class="nav-link" href="./index.html">Mapa</a> </li>-->
+          <li class="nav-item"> <a class="nav-link" href="#">Reportes</a> </li>
+          <!--<li class="nav-item"> <a class="nav-link" href="#">Incidencias</a> </li>-->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <button type="button" class="btn btn-success" id="btnRecargarReportes">Actualizar reportes</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="py-5">
+            <div>
+              <table id="exampleReporte" class="display" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>Estatus</th>
+                    <th>Tipo Reporte</th>
+                    <th>Telefono</th>
+                    <th>Mensaje</th>
+                    <th>Imagen</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>Estatus</th>
+                    <th>Tipo Reporte</th>
+                    <th>Telefono</th>
+                    <th>Mensaje</th>
+                    <th>Imagen</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL ALERT -->
+  <div class="modal" id="reporteModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Alerta</h5> <button type="button" class="close" data-dismiss="modal"> <span>×</span> </button>
+        </div>
+        <div class="modal-body">
+          <p id="textAlerUser">¿Quieres eliminar este reporte?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" id="btnEliminarReporte">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL FIN ALERT -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://npmcdn.com/parse@2.1.0/dist/parse.min.js"></script>
+  <script src="./js/parseSDK.js"></script>
+  <script src="./js/reportesDAO.js"></script>
+  <script src="https://unpkg.com/pnotify@4.0.0/dist/umd/PNotify.js"></script>
+  <link href="https://unpkg.com/pnotify@4.0.0/dist/PNotifyBrightTheme.css" rel="stylesheet">
+</body>
+
+</html>
